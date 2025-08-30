@@ -1,14 +1,9 @@
-==================================================
 Btxt - Base txt
-==================================================
-
 A simple Python library for working with text-based databases.  
 It allows you to create, modify, and manage structured text files  
 using columns and rows, similar to a very basic table system.
 
---------------------------------------------------
 Getting Started
---------------------------------------------------
 1. Copy the file btxt.py into your project.
 2. Import the class:
 
@@ -16,15 +11,12 @@ Getting Started
 
 3. Create a database object:
 
-    db = Btxt("my_database")
+db = Btxt("my_database")
 
 All operations will be performed on the file: my_database.txt
 
 
---------------------------------------------------
 Main Methods
---------------------------------------------------
-
 Database management:
 - create_base()              Create an empty database file.
 - delete_base()              Delete the database file.
@@ -44,10 +36,7 @@ Row and data management:
 - get_all()                  Print all rows from the database.
 
 
---------------------------------------------------
 Example Usage
---------------------------------------------------
-
 import random
 from btxt import Btxt
 
@@ -56,12 +45,12 @@ db = Btxt("Egg_metr_base")
 db.create_base()
 
 # Define columns
-db.set_columns("ID", "egg")
+db.set_columns("ID", "height")
 
 # Insert 100 rows
 for i in range(100):
     db.add(str(random.randint(1, 10000)),
-           f"{random.randint(1, 10000)}cm")
+           f"{random.randint(150, 200)}cm")
 
 # Count rows
 print("Row count:", db.count())
@@ -73,8 +62,6 @@ db.find("cm")
 db.duplicate_base()
 
 
---------------------------------------------------
 Errors
---------------------------------------------------
 Error 142 - Database not found during deletion
 Error 143 - Database not found during rename
