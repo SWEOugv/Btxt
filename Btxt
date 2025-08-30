@@ -1,0 +1,85 @@
+import os
+class Btxt:
+    def __init__(self, filename, delimetr='/'):
+        self.filename=filename
+        self.delimetr=delimetr
+    def create_base(self):
+        with open(f"{self.filename}.txt", "w",encoding="utf-8")as f:
+            f.write("")
+    def delete_base(self):
+        if os.path.exists(f"{self.filename}.txt"):
+            os.remove(f"{self.filename}.txt")
+        else:
+            print("Error 142")
+    def set_columns(self,*columns_name):
+        with open(f"{self.filename}.txt", "w",encoding="utf-8")as f:
+            f.write(self.delimetr.join(columns_name)+"\n")
+    def del_columns(self,*columns_delete):
+        with open(f"{self.filename}.txt", "r",encoding="utf-8")as f:
+            lines = f.readlines()
+            headers=lines[0].strip().split(self.delimetr)
+            rows=[line.strip().split(self.delimetr) for line in lines[1:]]
+            indexes=[headers.index(col)for col in columns_delete]
+            indexes.sort(reverse=True)
+            for i in indexes:
+                del headers[i]
+            for row in rows:
+                for i in indexes:
+                    del row[i]
+            with open(f"{self.filename}.txt", "w",encoding="utf-8")as f:
+                f.write(self.delimetr.join(headers)+"\n")
+                for row in rows:
+                    f.write(self.delimetr.join(row)+"\n")
+    def add(self,*value):
+        with open(f"{self.filename}.txt", "a", encoding="utf-8") as f:
+            f.write(self.delimetr.join(value)+"\n")
+    def clear(self):
+        with open(f"{self.filename}.txt", "w", encoding="utf-8"):
+            pass
+    def count(self):
+        with open(f"{self.filename}.txt", "r", encoding="utf-8") as f:
+            return len(f.readlines()[1:])
+    def find(self,*sovpadenia):
+        with open(f"{self.filename}.txt", "r", encoding="utf-8") as f:
+            c=f.read()
+            for d in sovpadenia:
+                if d in c:
+                    print(d)
+    def get_all(self):
+        with open(f"{self.filename}.txt", "r", encoding="utf-8") as f:
+            for line in file:
+                print(line.strip())
+    def duplicate_base(self):
+        count=1
+        f=open(f"{self.filename}.txt", "r", encoding="utf-8")
+        data=f.read()
+        f.close()
+        while os.path.exists(f"{self.filename}{count}.txt"):
+            count+=1
+        f=open(f"{self.filename}{count}.txt", "w", encoding="utf-8")
+        f.write(data)
+        f.close()
+    def add_column(self,*new_column: str):
+        with open(f"{self.filename}.txt", "r", encoding="utf-8") as f:
+            lines=f.readlines()
+            columns=lines[0].strip().split(self.delimetr)
+            columns.extend(new_column)
+            lines[0]=self.delimetr.join(columns)+"\n"
+        with open(f"{self.filename}.txt", "w", encoding="utf-8") as f:
+            f.writelines(lines)
+
+    def rename_base(self,new_name):
+        old_file=f"{self.filename}.txt"
+        new_file=f"{new_name}.txt"
+        if os.path.exists(old_file):
+            os.rename(old_file,new_file)
+            self.filename=new_name
+        else:
+            print("Error 143")
+
+import random
+b=Btxt("Egg metr base")
+b.set_columns("ID","egg")
+for i in range(100):
+    b.add(f"{random.randint(1,10000)}",f"{random.randint(1,10000)}cm")
+print(b.count())
